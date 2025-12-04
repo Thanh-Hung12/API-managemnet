@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './src/config/db.js'; // Nhớ đuôi .js
-import userRoutes from './src/routes/userRoutes.js'; // Nhớ đuôi .js
-import projectRoutes from './src/routes/projectRoutes.js';
-import { swaggerDocs } from "./src/swagger.js";
+import connectDB from './config/db.js'; // Nhớ đuôi .js
+import userRoutes from './routes/userRoutes.js'; // Nhớ đuôi .js
+import projectRoutes from './routes/projectRoutes.js';
+import { swaggerDocs } from "./swagger.js";
 
 
 
