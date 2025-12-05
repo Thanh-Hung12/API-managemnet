@@ -1,0 +1,23 @@
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "superdev",
+  "password": "123456",
+  "fullName": "Senior Developer",
+  "role": "admin",
+  "email": "test@gmail.com"
+  
+}
+
+###
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+"email": "test@gmail.com",
+  "password": "123456"
+}
+###
+GET http://localhost:3001/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJkZmFjYWI3NTM1M2U5MTJhYjhlNSIsImlhdCI6MTc2NDk0MTc2MywiZXhwIjoxNzY1NTQ2NTYzfQ.XRPOZ2PrmmIhETC2Vj3S0omBcpKnJ7R5wGrxNn2Jf_s
