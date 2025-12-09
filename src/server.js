@@ -5,13 +5,19 @@ import userRoutes from './routes/userRoutes.js'; // Nhớ đuôi .js
 import projectRoutes from './routes/projectRoutes.js';
 import { swaggerDocs } from "./swagger.js";
 import authRoutes from './routes/authRoutes.js'; 
-
+import cors from 'cors';
 
 
 // Load biến môi trường
 dotenv.config();
 
 const app = express();
+
+app.use(cors(
+  {
+    origin: '*'
+  }
+));
 
 // Middleware quan trọng: Giúp Express hiểu được dữ liệu JSON
 // Nếu thiếu dòng này, req.body sẽ bị undefined
