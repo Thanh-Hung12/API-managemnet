@@ -26,7 +26,13 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 18,
     },
+     refreshToken: { 
+    type: String, 
+    select: false // Mặc định không trả về khi query
+  }
+    
   },
+  
   {
     timestamps: true, // Tự động thêm createdAt và updatedAt
   }
@@ -34,12 +40,11 @@ const userSchema = new mongoose.Schema(
 
 
 // 🔒 Middleware: Tự động mã hóa password trước khi lưu
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-  //next();
 });
 
 // 🔑 Method: Tự so sánh password

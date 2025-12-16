@@ -152,18 +152,28 @@ const options = {
           properties: {
             name: { 
               type: "string",
+              description: "Tên người dùng",
               example: "John Doe"
             },
             email: { 
               type: "string",
               format: "email",
+              description: "Email của người dùng",
               example: "john@example.com"
             },
             password: { 
               type: "string",
               format: "password",
               minLength: 6,
+              description: "Mật khẩu (tối thiểu 6 ký tự)",
               example: "password123"
+            },
+            role: {
+              type: "string",
+              enum: ["user", "admin"],
+              default: "user",
+              description: "Vai trò của người dùng",
+              example: "user"
             },
           },
         },
@@ -188,27 +198,44 @@ const options = {
         AuthResponse: {
           type: "object",
           properties: {
-            message: { type: "string", example: "Đăng nhập thành công" },
-            data: {
+            success: { 
+              type: "boolean",
+              description: "Trạng thái thành công",
+              example: true
+            },
+            message: { 
+              type: "string",
+              description: "Thông báo",
+              example: "Đăng nhập thành công" 
+            },
+            accessToken: { 
+              type: "string",
+              description: "JWT Access Token",
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJkZmFjYWI3NTM1M2U5MTJhYjhlNSIsImlhdCI6MTc2NDk0MTc2MywiZXhwIjoxNzY1NTQ2NTYzfQ.XRPOZ2PrmmIhETC2Vj3S0omBcpKnJ7R5wGrxNn2Jf_s"
+            },
+            user: {
               type: "object",
+              description: "Thông tin user",
               properties: {
-                token: { 
+                id: { 
                   type: "string",
-                  description: "JWT Token",
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  example: "507f1f77bcf86cd799439011"
                 },
-                user: {
-                  type: "object",
-                  properties: {
-                    id: { type: "string" },
-                    email: { type: "string" },
-                    name: { type: "string" },
-                    role: { type: "string" },
-                  },
+                email: { 
+                  type: "string",
+                  example: "john@example.com"
+                },
+                name: { 
+                  type: "string",
+                  example: "John Doe"
+                },
+                role: { 
+                  type: "string",
+                  enum: ["user", "admin"],
+                  example: "user"
                 },
               },
             },
-            statusCode: { type: "number", example: 200 },
           },
         },
 
@@ -239,9 +266,31 @@ const options = {
           properties: {
             message: { 
               type: "string",
-              example: "User validation failed: email: Path `email` is required., name: Path `name` is required."
+              example: "Validation failed: email and name are required"
             },
-            statusCode: { type: "number", example: 500 },
+            statusCode: { type: "number", example: 400 },
+            errorCode: { 
+              type: "string",
+              example: "VALIDATION_ERROR"
+            },
+          },
+        },
+
+        SuccessResponse: {
+          type: "object",
+          properties: {
+            success: { 
+              type: "boolean",
+              example: true
+            },
+            message: { 
+              type: "string",
+              example: "Thao tác thành công"
+            },
+            data: { 
+              type: "object",
+              description: "Dữ liệu được trả về (tùy thuộc vào endpoint)"
+            },
           },
         },
       },

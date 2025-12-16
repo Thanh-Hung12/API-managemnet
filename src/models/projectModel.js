@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+
+
 const projectSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -8,6 +10,11 @@ const projectSchema = new mongoose.Schema({
   },
   description: {
     type: String
+  },
+   owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   status: {
     type: String,

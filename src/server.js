@@ -6,12 +6,14 @@ import projectRoutes from './routes/projectRoutes.js';
 import { swaggerDocs } from "./swagger.js";
 import authRoutes from './routes/authRoutes.js'; 
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 
 // Load biến môi trường
 dotenv.config();
 
 const app = express();
+
 
 app.use(cors(
   {
@@ -22,6 +24,8 @@ app.use(cors(
 // Middleware quan trọng: Giúp Express hiểu được dữ liệu JSON
 // Nếu thiếu dòng này, req.body sẽ bị undefined
 app.use(express.json());
+app.use(express.json());
+app.use(cookieParser()); 
 
 swaggerDocs(app);
 

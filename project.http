@@ -1,0 +1,18 @@
+###
+//tạo project
+POST http://localhost:3001/api/projects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5M2FiZmQ3NTYyYTQwMjAxZGQyYjg1YiIsImlhdCI6MTc2NTQ1NzkyOCwiZXhwIjoxNzY1NDU4ODI4fQ.YlyR12WYoSueu7aab87qLS_T0Mck1dG-n9reCgy862k
+
+{
+  "name": "Project 1",
+  "description": "This is a project",
+  "startDate": "2023-01-01",
+  "endDate": "2023-12-31",
+   "owner": "693abfd7562a40201dd2b85b"
+}
+
+###
+//lấy tất cả project
+GET http://localhost:3001/api/projects
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5M2FiZmQ3NTYyYTQwMjAxZGQyYjg1YiIsImlhdCI6MTc2NTQ1NzkyOCwiZXhwIjoxNzY1NDU4ODI4fQ.YlyR12WYoSueu7aab87qLS_T0Mck1dG-n9reCgy862k

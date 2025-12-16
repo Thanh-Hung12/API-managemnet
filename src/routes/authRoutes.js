@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, getMe, updateProfile, changePassword, logout } from '../controllers/authController.js';
+import { register, login, getMe, updateProfile, changePassword, logout, refresh } from '../controllers/authController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -297,7 +297,7 @@ router.put('/profile', protect, updateProfile);
  *                   type: string
  *                   example: "MISSING_PASSWORD"
  *       401:
- *         description: Mật khẩu cũ không đúng (INVALID_PASSWORD) hoặc không có token
+ *         description: Mật khẩu cũ không đúng hoặc không có token
  *         content:
  *           application/json:
  *             schema:
@@ -305,13 +305,15 @@ router.put('/profile', protect, updateProfile);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Mật khẩu cũ không đúng" | "Bạn chưa đăng nhập"
+ *                   description: "Mật khẩu cũ không đúng hoặc Bạn chưa đăng nhập"
+ *                   example: "Mật khẩu cũ không đúng"
  *                 statusCode:
  *                   type: number
  *                   example: 401
  *                 errorCode:
  *                   type: string
- *                   example: "INVALID_PASSWORD" | "NOT_AUTHORIZED"
+ *                   description: "INVALID_PASSWORD hoặc NOT_AUTHORIZED"
+ *                   example: "INVALID_PASSWORD"
  *       500:
  *         description: Lỗi hệ thống
  *         content:
@@ -354,5 +356,49 @@ router.post('/change-password', protect, changePassword);
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/logout', protect, logout);
+/**
+ * @swagger
+ * /auth/refresh-token:
+ *   post:
+ *     summary: Lấy token mới
+ *     tags: [Authentication]
+ *     description: Lấy token mới sử dụng refresh token. Refresh token phải được lưu trữ trong cookie httpOnly.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [refreshToken]
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 example: "refreshToken123"
+ *     responses:
+ *       200:
+ *         description: Lấy token mới thành công
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Lấy token mới thành công"
+ *                 accessToken:
+ *                   type: string
+ *                   example: "newAccessToken456"
+ *                 statusCode:
+ *                   type: number
+ *                   example: 200
+ *       401:
+ *         description: Refresh token không hợp lệ hoặc không có
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.post('/refresh-token', refresh);
+
 
 export default router;

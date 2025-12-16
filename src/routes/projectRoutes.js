@@ -1,7 +1,14 @@
 import express from 'express';
-import { create, getAll, getDetail } from '../controllers/projectController.js';
-
+import { create, getAll, getDetail, update, remove } from '../controllers/projectController.js';
+import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
+
+router.use(protect);
+
+ router.post('/', create);
+ router.get('/', getAll);
+ router.put('/:id', update);
+ router.delete('/:id', remove);
 
 /**
  * @swagger

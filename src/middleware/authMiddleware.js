@@ -13,7 +13,7 @@ export const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
 
       // 2. Giải mã Token (Verify)
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
 
       // 3. Tìm user tương ứng với token đó và gắn vào req.user
       // req.user sẽ được dùng ở các Controller phía sau
@@ -28,4 +28,19 @@ export const protect = async (req, res, next) => {
   if (!token) {
     return error(res, 'Bạn chưa đăng nhập', 401, 'NOT_AUTHORIZED');
   }
+};
+
+export const authorize = (...roles) => {
+  return (req, res, next) => {
+    // req.user đã có được từ middleware 'protect' chạy trước đó
+    if (!roles.includes(req.user.role)) {
+      return error(
+        res, 
+        'Bạn không có quyền thực hiện hành động này', 
+        403, 
+        'FORBIDDEN'
+      );
+    }
+    next();
+  };
 };

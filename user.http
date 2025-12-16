@@ -7,3 +7,34 @@ Content-Type: application/json
   "email": "john@example.com",
   "age": 20
 }
+
+###
+//tạo user 
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane@example12.com",
+  "age": 25
+  , "password": "password123"
+}
+
+###
+// đăng nhập user
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jane@example.com",
+  "password": "password123"
+}
+
+###
+// refresh token
+POST http://localhost:3001/api/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzJkZmFjYWI3NTM1M2U5MTJhYjhlNSIsImlhdCI6MTc2NDk0MTc2MywiZXhwIjoxNzY1NTQ2NTYzfQ.XRPOZ2PrmmIhETC2Vj3S0omBcpKnJ7R5wGrxNn2Jf_s"
+}
